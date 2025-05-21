@@ -5,11 +5,12 @@ library(shiny)
 library(randomForestSRC)
 library(ggplot2)
 library(rsconnect)
+library(pins)
 
+rsf_wt <- readRDS(url(
+  "https://vte-prophylaxis-timing.s3.us-east-2.amazonaws.com/rsf_wt.RDS"
+))
 
-
-# Load pre-trained RSF model
-rsf_wt <- readRDS("rsf_wt.RDS")
 
 ui <- fluidPage(
   titlePanel("Patient-specific VTE PD Plot"),
