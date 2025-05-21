@@ -7,10 +7,12 @@ library(ggplot2)
 library(rsconnect)
 library(pins)
 
+op <- options(timeout = 2400)                   # 10 min
 rsf_wt <- readRDS(url(
-  "https://vte-prophylaxis-timing.s3.us-east-2.amazonaws.com/rsf_wt.RDS"
+  "https://vte-prophylaxis-timing.s3.us-east-2.amazonaws.com/rsf_wt.RDS",
+  open = "rb"                                  # binary read
 ))
-
+options(op)                    # reset to original timeout
 
 ui <- fluidPage(
   titlePanel("Patient-specific VTE PD Plot"),
@@ -104,3 +106,5 @@ server <- function(input, output) {
 }
 
 shinyApp(ui, server)
+
+rsconnect::writeManifest(".", force = TRUE)
